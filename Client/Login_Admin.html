@@ -1,0 +1,101 @@
+<!DOCTYPE html>    
+<html>    
+<head>
+    <style>
+    body  
+    {
+        margin: 0;  
+        padding: 0;  
+        background-color:#f7fbfb;  
+        font-family: 'Arial';  
+    }  
+.login{  
+
+    position: absolute;
+    top:100px;
+    left: 639px;  
+
+}  
+h2{  
+    text-align: center;  
+    color: #277582;  
+    padding: 20px;  
+}  
+label{  
+    color: #277582;  
+    font-size: 17px;  
+}  
+#Uname{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+#Pass{  
+width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+      
+}  
+#log{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: #f7fbfb; 
+    background-color:#277582; 
+}  
+span{  
+    color: white;  
+    font-size: 17px;  
+}  
+.title{  
+    float: right;  
+    color: #277582; 
+
+}  
+    </style>  
+    <title class="title">Admin Login</title>    
+       
+</head>    
+<body>    
+    <h2>Admin Login Page</h2>
+    <br>    
+    <div class="login">    
+    <form id="login" method="get" action="http://localhost:8080/admin="+Uname+Pass>    
+        <label><b>User Name     
+        </b>    
+        </label>    
+        <input type="text" name="Uname" id="Uname" placeholder="Username"></input> 
+        <br><br>    
+        <label><b>Password     
+        </b>    
+        </label>    
+        <input type="Password" name="Pass" id="Pass" placeholder="Password"></input>     
+        <br><br>    
+        <input type="button" name="log" class="btn" id="log" value="LogIn">       
+         
+    </form>     
+</div>    
+</body>    
+<script>
+        document.getElementById("log").onclick= function(){
+            let uname= document.getElementById("Uname").value;
+            let pass= document.getElementById("Pass").value;
+            if(uname==''||pass==''){
+                alert("Please put in Username and Password")
+                return;
+            }
+            
+            console.log("hihih");
+            console.log(uname);
+            console.log(pass);
+            location.href = 'http://localhost:8080/admin='+uname+'&'+pass;
+            console.log(location.href);
+        }
+</script>  
+</html>     
