@@ -1,0 +1,86 @@
+[
+    {
+        "clientId": "1",
+        "img": "beitar.png",
+        "background": "bg-warning",
+        "txt": "Yalla Yalla Ya Beitar",
+        "interval": "10000"
+    },
+    {
+        "clientId": "1",
+        "img": "TLV.png",
+        "background": "bg-primary",
+        "txt": "Yalla Yalla Ya Maccabi",
+        "interval": "12000"
+    },
+    {
+        "clientId": "1",
+        "img": "Haifa.png",
+        "background": "bg-success",
+        "txt": "Yalla Yalla Ya Haifa",
+        "interval": "14000"
+    },
+    {
+        "clientId": "1",
+        "img": "htlv.png",
+        "background": "bg-danger",
+        "txt": "Yalla Yalla Ya Hapoel",
+        "interval": "17000"
+    },
+    {
+        "clientId": "2",
+        "img": "beitar.png",
+        "background": "bg-warning",
+        "txt": "Yom gashom Hayom",
+        "interval": "10000"
+    },
+    {
+        "clientId": "2",
+        "img": "TLV.png",
+        "background": "bg-primary",
+        "txt": "Yom Shimshi Hayom",
+        "interval": "12000"
+    },
+    {
+        "clientId": "2",
+        "img": "Haifa.png",
+        "background": "bg-success",
+        "txt": "Shabat shlom",
+        "interval": "14000"
+    },
+    {
+        "clientId": "2",
+        "img": "htlv.png",
+        "background": "bg-danger",
+        "txt": "Cororna time",
+        "interval": "17000"
+    },
+    {
+        "clientId": "3",
+        "img": "beitar.png",
+        "background": "bg-warning",
+        "txt": "Yalla Yalla Ya Beitar",
+        "interval": "10000"
+    },
+    {
+        "clientId": "3",
+        "img": "TLV.png",
+        "background": "bg-primary",
+        "txt": "Yalla Yalla Ya Maccabi",
+        "interval": "12000"
+    },
+    {
+        "clientId": "3",
+        "img": "Haifa.png",
+        "background": "bg-success",
+        "txt": "Yalla Yalla Ya Haifa",
+        "interval": "14000"
+    },
+    {
+        "clientId": "3",
+        "img": "htlv.png",
+        "background": "bg-danger",
+        "txt": "Yalla Yalla Ya Hapoel",
+        "interval": "17000"
+    }
+]
