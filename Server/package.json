@@ -11,6 +11,8 @@
   "dependencies": {
     "express": "^4.17.2",
     "jquery": "^3.6.0",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.2.1",
     "socket.io": "^4.4.1"
   }
 }
