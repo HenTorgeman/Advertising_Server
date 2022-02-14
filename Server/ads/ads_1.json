@@ -1,0 +1,29 @@
+[
+    {
+        "name": "first_ad",
+        "img": "beitar.png",
+        "background": "bg-warning",
+        "txt": "Yalla Yalla Ya Beitar",
+        "interval": "10000"
+    },
+    {
+        "name": "second_ad",
+        "img": "TLV.png",
+        "background": "bg-primary",
+        "txt": "Yalla Yalla Ya Maccabi",
+        "interval": "12000"
+    },
+    {
+        "name": "third_ad",
+        "img": "Haifa.png",
+        "background": "bg-success",
+        "txt": "Yalla Yalla Ya Haifa",
+        "interval": "14000"
+    },
+    {
+        "name": "fourth_ad",
+        "img": "htlv.png",
+        "background": "bg-danger",
+        "txt": "Yalla Yalla Ya Hapoel",
+        "interval": "17000"
+    }]

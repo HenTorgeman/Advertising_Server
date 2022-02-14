@@ -1,0 +1,29 @@
+[
+    {
+        "name": "first_ad",
+        "img": "beitar.png",
+        "background": "bg-warning",
+        "txt": "Yom gashom Hayom",
+        "interval": "10000"
+    },
+    {
+        "name": "second_ad",
+        "img": "TLV.png",
+        "background": "bg-primary",
+        "txt": "Yom Shimshi Hayom",
+        "interval": "12000"
+    },
+    {
+        "name": "third_ad",
+        "img": "Haifa.png",
+        "background": "bg-success",
+        "txt": "Shabat shlom",
+        "interval": "14000"
+    },
+    {
+        "name": "fourth_ad",
+        "img": "htlv.png",
+        "background": "bg-danger",
+        "txt": "Cororna time",
+        "interval": "17000"
+    }]
