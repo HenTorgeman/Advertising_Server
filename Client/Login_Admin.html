@@ -1,7 +1,13 @@
 <!DOCTYPE html>    
 <html>    
+
 <head>
-    <style>
+<title class="title">Admin Login</title>    
+<link href="/Client/Style.css" rel="stylesheet" />
+
+<style>
+
+/*LogIn*/
 body  
 {
         margin: 0;  
@@ -16,27 +22,17 @@ body
     left: 639px;  
 
 }  
-h2{  
-    text-align: center;  
-    color: #277582;  
-    padding: 20px;  
-}  
-label{  
-    color: #277582;  
-    font-size: 17px;  
-}  
+
 #Uname{  
     width: 300px;  
     height: 30px;  
     border: none;  
-    border-radius: 3px;  
     padding-left: 8px;  
 }  
 #Pass{  
 width: 300px;  
     height: 30px;  
     border: none;  
-    border-radius: 3px;  
     padding-left: 8px;  
       
 }  
@@ -44,29 +40,19 @@ width: 300px;
     width: 300px;  
     height: 30px;  
     border: none;  
-    border-radius: 17px;  
     padding-left: 7px;  
     color: #f7fbfb; 
     background-color:#277582; 
 }  
-span{  
-    color: white;  
-    font-size: 17px;  
-}  
-.title{  
-    float: right;  
-    color: #277582; 
 
-}  
 
-</style>  
-<title class="title">Admin Login</title>    
-       
+</style>
+
 </head>    
-<body>    
-    <h2>Admin Login Page</h2>
-    <br>    
+<body>        
     <div class="login">    
+        <h2>Admin Login Page</h2>
+
     <form id="login" method="get" action="http://localhost:8080/admin="+Uname+Pass>    
         <label><b>User Name     
         </b>    

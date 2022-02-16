@@ -2,244 +2,397 @@
 
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<style>
+body  {
+        margin: 0;  
+        padding: 0;  
+        background-color:#f7fbfb;  
+        font-family: 'Arial';  
+        font-size: 14px;
+}  
+.admin-containe{
+    position: absolute;
+    top:20px;
+    left: 520px;
+}
+
+#showBttn,#editMessages,#adminPassUserChangebtn {  
+    width: 150px;  
+    height: 50px;  
+    border: none;  
+    color: #f7fbfb; 
+    background-color:#277582; 
+    margin-left: 10px;
+
+}
+
+#admin_edit{
+    
+    position: absolute;
+    top: 200px;
+    left: 530px;
+    width: 400px;
+    border: 2px solid #277582;
+    height: 220px;
+    padding: 30px;
+}
+
+#massege_edit{
+    
+    position: absolute;
+    top: 200px;
+    left: 530px;
+    width: 500px;
+    border: 2px solid #277582;
+    height: 220px;
+    padding: 30px;
+}
+
+.btn{
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    padding-left: 7px;  
+    color: #f7fbfb; 
+    background-color:#277582; 
+}
+
+.row-container{
+display: flex;
+
+}
+.btn-small{
+    width: 100px;  
+    height: 30px;  
+    border: none;  
+    padding-left: 7px;  
+    color: #f7fbfb; 
+    background-color:#277582; 
+}
+
+.input-edit-admin{
+   
+    margin-left: 20px;
+}
+
+.input-edit-small{
+    width: 100px;
+    height: 30px;
+    margin-left: 20px;
+
+
+}
+</style>
 <script>
 
-        // $(document).ready(() => {
+        $(document).ready(() => {
+            console.log("Ready");
+            let screen = "";
+            let msgArr = [];
+            let msg = new Object();
+            let msgText = " ";
+            let msgTime = 0;
+            let newScreen = 1
+            let users = [];
 
-        //     let screen = "";
-        //     let msgArr = [];
-        //     let msg = new Object();
-        //     let msgText = " ";
-        //     let msgTime = 0;
-        //     let newScreen = 1
-        //     let users = [];
+            //Hen's Global 
 
+            var glbl_screen;
 
+            //Edit message
 
-        //     function editMessages() {
+            $('#editMessages').click(() => {
+                reset_edit_process();
+                reset_page();
+                document.getElementById("massege_edit").style.display="block";
 
-        //         screen = prompt("enter screen number to edit");
-        //         if (screen == null)
-        //             return;
+            });
 
-        //         $.ajax({
-        //             url: "http://localhost:8080/screen=" + screen,
-        //             type: "GET",
-        //             success: function (arr) {
-        //                 msgArr = arr;
-        //                 const choice = prompt("enter 1 to add message, 2 to edit message");
+            $("#editmsg_screen").change(()=>{
 
-        //                 if (choice == 2) {
-        //                     const msgNum = prompt("there are " + msgArr.length + " messages, select message number to edit");
-        //                     if (msgNum != null) {
+            var screen=document.getElementById("editmsg_screen").value;
+            glbl_screen=screen;
+            if(screen>0){
+              $.ajax({
+                    url: "http://localhost:8080/screen=" + screen,
+                    type: "GET",
+                    success: function (arr) {
+                        console.log(arr);
+                        msgArr = arr;
+                        document.getElementById("pros2").style.display="block";
+                        document.getElementById("select_msg_lable").innerHTML="The screen containes " +msgArr.length+" Ads, please select one."
+                    },
+                       
+                    error: function (err) {
+                        console.log(err);
+                    }
+                
+                });
+            }
+ });
 
-        //                         msg = msgArr[msgNum - 1];
+            $("#edit_msg_btn").click(()=>{
 
-        //                         msgTime = prompt("current message time is " + msg.length + " enter new length(enter 0 to delete)");
-        //                         if (msgTime != null) {
+                var msg_num=document.getElementById("editmsg_msg").value;
+                if(msg_num==0 ||msg_num=="") alert("cant edit without enter message number");
+                else{
+                    msg = msgArr[msg_num - 1];
+                    reset_edit_process();
+                    document.getElementById("edit_msg_title").innerHTML="You editing massege number : "+msg_num;
+                    document.getElementById("pros3_edit").style.display="block";
+                    document.getElementById("editmsg_text").value=msg.txt;
+                    document.getElementById("editmsg_time").value=msg.interval;
+                    document.getElementById("editmsg_new_screen").value=glbl_screen;
 
-        //                             msgText = prompt("enter new text for message(enter 0 to delete if new time is 0)");
+               }
+            });   
+          
+            $("#submit_edit_msg").click(()=>{
 
-        //                             if(msgText == '0' && msgTime == '0'){
-        //                                 newScreen = 1;
-        //                                 update();
-        //                                 return;
-        //                             }
-        //                             if (msgText != null) {
+                var text=document.getElementById("editmsg_text").value;
+                var duration=document.getElementById("editmsg_time").value;
+                var screen=glbl_screen;
+                var newscreen=document.getElementById("editmsg_new_screen").value;
+                var id= msg._id;
 
-        //                                 newScreen = prompt('current screen is ,' + screen + ' enter new screen for message to be displayed in');
-        //                                 if (newScreen != null)
-        //                                     update();
+                $.ajax({
+                  url: "http://localhost:8080/updateMessage=" + text + '&' + duration + '&' + id + '&' + screen + '&' + newscreen,
+                  type: "GET",
+                  success: (data) => {
+                      console.log(data);
+                      alert('data was saved');
+                      reset_edit_process();
+                      reset_page();
+                      },
+                  error: function (err) {
+                     console.log(err);
+                   }
+               });
 
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //                 if (choice == 1) {
-
-        //                     msgTime = prompt("Enter message length");
-        //                     if (msgTime == null) {
-        //                         return;
-        //                     }
-
-        //                     msgText = prompt("enter text for message");
-        //                     if (msgText == null) {
-        //                         return;
-        //                     }
-
-        //                     update();
-        //                 }
-        //             },
-        //             error: function (err) {
-        //                 console.log(err);
-        //             }
-        //         });
-        //     }
-
-
-        //     function update() {
-
-        //         let temp = msg._id;
-        //         if (temp == undefined) {
-        //             temp = 1;
-        //         }
-
-        //         $.ajax({
-
-        //             url: "http://localhost:8080/updateMessage=" + msgText + '&' + msgTime + '&' + temp + '&' + screen + '&' + newScreen,
-        //             type: "GET",
-        //             success: () => {
-
-        //                 $('#outPut').html('data was saved');
-        //             },
-        //             error: function (err) {
-        //                 console.log(err);
-        //             }
-        //         });
-        //     }
+            });
 
 
-        //     $('#showBttn').click(function () {
+        //  Add New message
+           $('#add_msg_btn').click(() => {
+        reset_edit_process();
+        document.getElementById("pros3_add").style.display="block";
+        document.getElementById("add_msg_title").innerHTML="You Adding message to screen "+glbl_screen;
+        
+   });
 
-        //         $.ajax({
+            $("#submit_add_msg").click(()=>{
 
-        //             url: "http://localhost:8080/getUsers",
-        //             type: "GET",
-        //             success: (usrs) => {
-        //                 users = usrs;
-        //                 let i = 1;
-        //                 for (let j = 0; j < usrs.length; j++) {
-        //                     if (usrs[j] == null)
-        //                         continue;
-        //                     else {
-        //                         $('#showUser' + i).text('Username: ' + usrs[j].userName + ' Password: ' + usrs[j].passWord + ' Connected: ' + usrs[j].connected);
-        //                         $('#editBttn' + i).show();
+                var text=document.getElementById("addmsg_text").value;
+                var duration=document.getElementById("addmsg_time").value;
+                var id=glbl_screen;
 
-        //                     }
-        //                     i++;
-        //                 }
-        //                 $('#showBttn').hide();
-        //             },
-        //             error: function (err) {
-        //                 console.log(err);
-        //             }
-        //         });
-        //     });
+                console.log("submit_add_msg");
+                $.ajax({
+                  url: "http://localhost:8080/addNewMessage=" + text + '&' + duration + '&' + id,
+                  type: "GET",
+                  success: (data) => {
+                      console.log(data);
+                      alert('data was saved to client'+glbl_screen);
+                      reset_edit_process();
+                      reset_page();
+                      },
+                  error: function (err) {
+                     console.log(err);
+                   }
+               });
+            });
 
+      //  Delete message
+      /* $('#delete_msg_btn').click(() => {
+      
+        var msg_num=document.getElementById("editmsg_msg").value;
+        console.log(msg_num);
+                if(msg_num==0 ||msg_num=="") alert("cant edit without enter message number");
+                else{
+                    msg = msgArr[msg_num - 1];
+                }
 
+                var id=msg._id;
 
-        //     $('#editBttn1').click(function () {
-        //         let editpass = '';
-        //         editpass = prompt('What is the new passWord? (enter 0 to delete user)');
-        //         if (editpass == null)
-        //             return;
-
-        //         $.ajax({
-        //             url: "http://localhost:8080/adminEditUser=" + editpass + '&' + users[0]._id,
-        //             type: "GET",
-        //             success: () => {
-        //                 alert('User was changed');
-        //             }
-        //         });
-        //     });
-
-        //     $('#editBttn2').click(function () {
-        //         let editpass = '';
-
-        //         editpass = prompt('What is the new passWord? (enter 0 to delete user)');
-        //         if (editpass == null)
-        //             return;
-
-        //         $.ajax({
-        //             url: "http://localhost:8080/adminEditUser=" + editpass + '&' + users[1]._id,
-        //             type: "GET",
-        //             success: () => {
-        //                 alert('User was changed');
-        //             }
-        //         });
-        //     });
-
-        //     $('#editBttn3').click(function () {
-        //         let editpass = '';
-        //         editpass = prompt('What is the new passWord? (enter 0 to delete user)');
-        //         if (editpass == null)
-        //             return;
-
-        //         $.ajax({
-        //             url: "http://localhost:8080/adminEditUser=" + editpass + '&' + users[2]._id,
-        //             type: "GET",
-        //             success: () => {
-        //                 alert('User was changed');
-        //             }
-        //         });
-        //     });
+                console.log("Delete : "+id);
+         $.ajax({
+                  url: "http://localhost:8080/deleteMessage=" + id,
+                  type: "GET",
+                  success: (data) => {
+                      alert('data was saved');
+                      reset_edit_process();
+                      reset_page();
+                      },
+                  error: function (err) {
+                     console.log(err);
+                   }
+               });
 
 
-        //     $('#editMessages').click(editMessages);
+        
+         });
+         */
+
+         //Admin Edit process
+
+            $('#adminPassUserChangebtn').click(() => {
+                reset_edit_process();
+                reset_page();
+                document.getElementById("admin_edit").style.display="block";
+
+            });
+
+            $('#submit_admin_edit').click(() => {
+
+                    var username=document.getElementById("admin_name").value;
+                    var password=document.getElementById("admin_pass").value;
+                    var new_username=document.getElementById("admin_name_new").value;
+                    var new_password=document.getElementById("admin_pass_new").value;
+
+                    if(username!="" && password!=""){
+
+                        if(new_username!="" && new_password!=""){
+
+                            $.ajax({
+                                url: "http://localhost:8080/adminPassChange=" + username + '&' + password + '&' + new_username + '&' + new_password,
+                                type: "GET",
+                                success: (res) => {
+                                    alert(res);
+                                   reset_page();
+                                }
+                            });
+                        }
+
+                    }
+                    else{
+
+                            alert("Hi! You Must enter all details");
+                            document.getElementById("edit_admin").style.display="none;";
+
+                    }
+                });
 
 
-        //     $('#adminPassUserChangebtn').click(() => {
+         //Helpears       
+            function reset_page(){
+                document.getElementById("admin_edit").style.display="none";
+                document.getElementById("massege_edit").style.display="none";
 
-        //         const user = prompt('enter username');
-        //         if (user == null)
-        //             return;
-        //         const pssWrd = prompt('enter password');
-        //         if (pssWrd == null)
-        //             return;
-
-
-        //         let newName = prompt('choose new user name');
-        //         if (newName == null) {
-        //             alert('error in information');
-        //             return;
-        //         }
-
-        //         let newPswrd = prompt('choose new pass word');
-        //         if (newPswrd == null) {
-        //             alert('error in information');
-        //             return;
-        //         }
-
-        //         $.ajax({
-        //             url: "http://localhost:8080/adminPassChange=" + user + '&' + pssWrd + '&' + newName + '&' + newPswrd,
-        //             type: "GET",
-        //             success: (res) => {
-        //                 alert(res);
-        //             }
-        //         });
-        //     });
-
-        // });
+            }
  
- </script>
+            function reset_edit_process(){
+                
+                document.getElementById("pros2").style.display="none";
+                document.getElementById("pros3_edit").style.display="none";
+                document.getElementById("pros3_add").style.display="none";
+
+                
+
+            }
+});
+
+</script>
+
 <title class="title">Admin Login</title>    
 </head>
 
 <body>
-    <h2>Admin Access</h2>
+    <div class="admin-containe">
+            <h2>Admin Managment Page</h2>
 
-    <div id="outPut"></div>
+            <div id="outPut"></div>
 
-    <button id="showBttn">Click here to view Users</button>
+            <button id="showBttn">Users List</button>
 
-    <button id="editMessages">Click here to edit message</button>
+            <button id="editMessages">Edit Message</button>
 
-    <button id="adminPassUserChangebtn">Click here to change admin's user names and passwords</button>
+            <button id="adminPassUserChangebtn">Edit Admin</button>
+    </div>
+<div id="view_users" style="display: none;">
 
-</body>
+        <div id='showUser1'> </div>
+        <button id="editBttn1" hidden='true'>Edit</button>
+        <div id='showUser2'> </div>
+        <button id="editBttn2" hidden='true'>Edit</button>
+        <div id='showUser3'></div>
+        <button id="editBttn3" hidden='true'>Edit</button>
+ </div>
 
-<div id='showUser1'> </div>
+<div id="admin_edit" style="display: none;">
 
-<button id="editBttn1" hidden='true'>Edit</button>
+    <label>User Name</label>    
+    <input type="text" class="input-edit-admin" id="admin_name" placeholder="User name"></input> 
+    <br><br>    
+    
+    <label>Password</label>    
+    <input type="Password" class="input-edit-admin" id="admin_pass" placeholder="Password"></input>     
+    <br><br>   
+    <label>New User Name</label>    
+    <input type="text" class="input-edit-admin" id="admin_name_new" placeholder="Enter new name"></input> 
+    <br><br>    
+    <label>New Password</label>    
+    <input type="Password" class="input-edit-admin" id="admin_pass_new" placeholder="Enter new password"></input>     
+    <br><br>    
+    <input type="button" name="submit_admin" class="btn" id="submit_admin_edit" value="Save Changes">       
+     
+</div>
 
-<div id='showUser2'> </div>
+<div id="massege_edit" style="display: none;">
 
-<button id="editBttn2" hidden='true'>Edit</button>
+    <div id="pros1">
+        <label>Enter screen number</label>    
+        <input type="text" class="input-edit-small" id="editmsg_screen" placeholder="1"></input> 
+    </div>
+    
+    <br>
 
-<div id='showUser3'></div>
+    <div id="pros2" style="display: none;">
+        <div class="row-container">
+            <label id="select_msg_lable"></label> 
+            <input type="text" class="input-edit-small" id="editmsg_msg" placeholder="1"></input> 
+        </div>
+         <br>
+        <div class="row-container">
+           <input type="button" class="btn-small" id="edit_msg_btn" value="Edit">       
+           <input type="button" class="btn-small" id="add_msg_btn" value="Add">      
+           <input type="button" class="btn-small" id="delete_msg_btn" value="Delete">       
 
-<button id="editBttn3" hidden='true'>Edit</button>
+        </div>
 
+    </div>
+
+    
+    <div id="pros3_edit" style="display: none;">
+        <label id="edit_msg_title" ></label>
+        <br>
+        <br>
+        <label>Massage Text</label>    
+        <input type="text" class="input-edit-admin" id="editmsg_text"></input>     
+        <br><br>   
+        <label>Massage Duration</label>    
+        <input type="text" class="input-edit-admin" id="editmsg_time"></input>          
+        <br><br>    
+        <label>Massage Screen</label>    
+        <input type="text" class="input-edit-admin" id="editmsg_new_screen"></input>          
+        <br><br>    
+        <input type="button" class="btn" id="submit_edit_msg" value="Save Changes">       
+
+    </div>
+
+    <div id="pros3_add" style="display: none;">
+        <label id="add_msg_title" ></label>
+        <br>
+        <br>
+        <label>Massage Text</label>    
+        <input type="text" class="input-edit-admin" id="addmsg_text"></input>     
+        <br><br>   
+        <label>Massage Duration</label>    
+        <input type="text" class="input-edit-admin" id="addmsg_time"></input>          
+        <br><br>    
+        <input type="button" class="btn" id="submit_add_msg" value="Save Changes">       
+
+    </div>
+</div>
 </body>
 
 </html>
