@@ -54,20 +54,14 @@ app.get('/ClientLogIn=:user_name&:user_pass', function (request, response) {
     const user_pass = request.params.user_pass;
 
     Usersdb.findOne({ userName: userName, password: user_pass })
-        .then((usr) =>
-            response.send(usr)).catch(err => {
-                console.log(err);
-            });
+        .then((usr) => {
+            usr.connected = true;
+            usr.save();
+            response.send(usr);
+        }).catch(err => {
+            console.log(err);
+        });
 });
-
-// app.get('/checkUser=:user', (request, response) => {
-
-//     const userName = request.params.user;
-
-//     Usersdb.findOne({ userName: userName })
-//         .then((usr) => response.send(usr));
-// });
-
 
 //Get all Massages from screen id
 app.get('/screen=:id', function (request, response) {
@@ -76,6 +70,8 @@ app.get('/screen=:id', function (request, response) {
     Messagedb.find({ clientId: screen.toString() })
         .then((obj) => { response.send(obj) });
 });
+
+
 
 //Update Massage after editing
 app.get('/updateMessage=:messageText&:messageTime&:msgID&:screenID&:newScreen', function (request, response) {
