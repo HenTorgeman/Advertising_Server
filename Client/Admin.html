@@ -79,12 +79,17 @@ display: flex;
     width: 100px;
     height: 30px;
     margin-left: 20px;
-
-
 }
 
 .user_line{
-    
+    color: black;
+    font-size:14px;
+    margin-bottom: 5px;
+}
+.user_line_connected{
+    color: green;
+    font-size:14px;
+    margin-bottom: 5px;
 }
 </style>
 <script>
@@ -121,7 +126,6 @@ display: flex;
                     url: "http://localhost:8080/screen=" + screen,
                     type: "GET",
                     success: function (arr) {
-                        console.log(arr);
                         msgArr = arr;
                         document.getElementById("pros2").style.display="block";
                         document.getElementById("select_msg_lable").innerHTML="The screen containes " +msgArr.length+" Ads, please select one."
@@ -245,7 +249,6 @@ display: flex;
                     }
                 });
 
-
          //Helpears       
             function reset_page(){
                 document.getElementById("admin_edit").style.display="none";
@@ -278,13 +281,19 @@ display: flex;
                     success: (usrs) => {
                        var users = usrs;
                         let i = 1;
-                        alert(users.length)
                         for (let j = 0; j < users.length; j++) {
 
                             if (users[j] == null)
                                 continue;
                             else {
                                 document.getElementById("user"+i).innerText='User Name: ' + users[j].userName + ' Password: ' + users[j].password + ' Connected: ' + users[j].isConnected;
+                            
+                                if(users[j].isConnected==true)
+                                    document.getElementById("user"+i).className="user_line_connected";
+                                else{
+                                    document.getElementById("user"+i).className="user_line";
+
+                                    }
                             }
                             i++;
                         }
@@ -304,7 +313,7 @@ display: flex;
 
 </script>
 
-<title class="title">Admin Login</title>    
+<title class="title">Admin</title>    
 </head>
 
 <body>

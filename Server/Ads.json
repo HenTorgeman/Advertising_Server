@@ -1,86 +1,86 @@
 [
     {
         "clientId": "1",
-        "img": "beitar.png",
+        "img": "HTV.jfif",
         "background": "bg-warning",
         "txt": "Yalla Yalla Ya Beitar",
         "interval": "10000"
     },
     {
         "clientId": "1",
-        "img": "TLV.png",
+        "img": "HTV.jfif",
         "background": "bg-primary",
         "txt": "Yalla Yalla Ya Maccabi",
         "interval": "12000"
     },
     {
         "clientId": "1",
-        "img": "Haifa.png",
+        "img": "https://imgur.com/GzNTd6B",
         "background": "bg-success",
         "txt": "Yalla Yalla Ya Haifa",
         "interval": "14000"
     },
     {
         "clientId": "1",
-        "img": "htlv.png",
+        "img": "https://imgur.com/jVJqjw5",
         "background": "bg-danger",
         "txt": "Yalla Yalla Ya Hapoel",
         "interval": "17000"
     },
     {
         "clientId": "2",
-        "img": "beitar.png",
+        "img": "https://imgur.com/97cMqie",
         "background": "bg-warning",
         "txt": "Yom gashom Hayom",
         "interval": "10000"
     },
     {
         "clientId": "2",
-        "img": "TLV.png",
+        "img": "https://imgur.com/jVJqjw5",
         "background": "bg-primary",
         "txt": "Yom Shimshi Hayom",
         "interval": "12000"
     },
     {
         "clientId": "2",
-        "img": "Haifa.png",
+        "img": "https://imgur.com/GzNTd6B",
         "background": "bg-success",
         "txt": "Shabat shlom",
         "interval": "14000"
     },
     {
         "clientId": "2",
-        "img": "htlv.png",
+        "img": "https://imgur.com/jVJqjw5.png",
         "background": "bg-danger",
         "txt": "Cororna time",
         "interval": "17000"
     },
     {
         "clientId": "3",
-        "img": "beitar.png",
+        "img": "https://imgur.com/97cMqie",
         "background": "bg-warning",
-        "txt": "Yalla Yalla Ya Beitar",
+        "txt": "Yalla Yalla Ya Eden",
         "interval": "10000"
     },
     {
         "clientId": "3",
-        "img": "TLV.png",
+        "img": "https://imgur.com/jVJqjw5",
         "background": "bg-primary",
-        "txt": "Yalla Yalla Ya Maccabi",
+        "txt": "Yalla Yalla Ya Amit",
         "interval": "12000"
     },
     {
         "clientId": "3",
-        "img": "Haifa.png",
+        "img": "https://imgur.com/GzNTd6B",
         "background": "bg-success",
-        "txt": "Yalla Yalla Ya Haifa",
+        "txt": "Yalla Yalla Ya Bar",
         "interval": "14000"
     },
     {
         "clientId": "3",
-        "img": "htlv.png",
+        "img": "https://imgur.com/jVJqjw5",
         "background": "bg-danger",
-        "txt": "Yalla Yalla Ya Hapoel",
+        "txt": "Yalla Yalla Ya Hen",
         "interval": "17000"
     }
 ]

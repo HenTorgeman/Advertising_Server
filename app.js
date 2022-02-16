@@ -69,6 +69,8 @@ app.get('/ClientLogOut=:user_name&:user_pass', function (request, response) {
 
     Usersdb.findOne({ userName: user_name, password: user_pass })
         .then((usr) => {
+            console.log("usr.isConnected");
+            console.log(usr.isConnected);
             usr.isConnected = false;
             usr.save();
         });
@@ -184,8 +186,6 @@ app.get('/adminPassChange=:userName&:passWord&:newUser&:newPass', (request, resp
             response.send('user was updated');
         })
 });
-
-
 
 //Get All Users
 app.get('/GetUsers', (request, response) => {
