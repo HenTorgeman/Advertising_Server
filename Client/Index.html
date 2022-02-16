@@ -29,9 +29,6 @@
                 var user_name = document.getElementById("username").value;
                 var user_pass = document.getElementById("userpass").value;
 
-                console.log(user_name);
-                console.log(user_pass);
-
                 if (user_name == "" || user_pass == "")
                     alert("Cant log in wothout values");
                 else {
@@ -41,8 +38,9 @@
                         url: "http://localhost:8080/ClientLogIn=" + user_name + '&' + user_pass,
                         type: "GET",
                         success: (data) => {
-                            alert('LogedIn');
                             clientId = user_name;
+                            document.getElementById("user_name").style.display="none";
+                            document.getElementById("loggedIn").style.display="block";
                             get_messages();
 
                         },
@@ -53,6 +51,31 @@
 
 
                 }
+
+
+            });
+
+             $('#logout').click(() => {
+
+                var user_name = document.getElementById("username").value;
+                var user_pass = document.getElementById("userpass").value;
+                
+                    $.ajax({
+                        url: "http://localhost:8080/ClientLogOut=" + user_name + '&' + user_pass,
+                        type: "GET",
+                        success: (data) => {
+                            clientId = user_name;
+                            document.getElementById("user_name").style.display="block";
+                            document.getElementById("loggedIn").style.display="none";
+                            document.getElementById("Message").style.display="none";
+
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+
+
 
 
             });
@@ -115,7 +138,8 @@
                     document.getElementById("Message").style.display = "block";
 
                     document.getElementById("Message").className = msg.background;
-                    document.getElementById("msg_img").src = msg.img;
+                    document.getElementById("msg_img").src ="/"+msg.img;
+                
                     document.getElementById("msg_txt").innerHTML = msg.txt;
                 }, msg.interval);
 
@@ -138,7 +162,6 @@
 
 <body>
     <div class="container">
-
         <h1 id="user">Client</h1>
 
         <div id="user_name">
@@ -157,23 +180,22 @@
 
         </div>
 
+        <div id="loggedIn" style="display: none;">
+
+            <p id="loggedIn_title"></p>
+            <input id="logout" type="button" value="Log Out">
+        </div>
+        
         <br>
         <br>
 
         <div id="Message">
-            <p>Message</p>
-            <label id="msg_txt"></label>
+            <h5 id="msg_txt"></h5>
             <img id="msg_img">
 
         </div>
     </div>
-    <!-- <h2>ADS</h2>
-    <h1 id= "user"></h1>
-
-    <div id = "tempA" >  </div>
-
-    <button id = "changePaswwordBttn" hidden= "true">click to change passWord</button>
-    <button id = "logOut"  hidden= "true">click to logOut</body> -->
+ 
 </body>
 
 </html>

@@ -16,7 +16,7 @@ body  {
     left: 520px;
 }
 
-#showBttn,#editMessages,#adminPassUserChangebtn {  
+#UserList,#editMessages,#adminPassUserChangebtn {  
     width: 150px;  
     height: 50px;  
     border: none;  
@@ -26,7 +26,7 @@ body  {
 
 }
 
-#admin_edit{
+#admin_edit,#view_users{
     
     position: absolute;
     top: 200px;
@@ -81,6 +81,10 @@ display: flex;
     margin-left: 20px;
 
 
+}
+
+.user_line{
+    
 }
 </style>
 <script>
@@ -174,11 +178,11 @@ display: flex;
 
         //  Add New message
            $('#add_msg_btn').click(() => {
-        reset_edit_process();
-        document.getElementById("pros3_add").style.display="block";
-        document.getElementById("add_msg_title").innerHTML="You Adding message to screen "+glbl_screen;
+            reset_edit_process();
+            document.getElementById("pros3_add").style.display="block";
+            document.getElementById("add_msg_title").innerHTML="You Adding message to screen "+glbl_screen;
         
-   });
+             });
 
             $("#submit_add_msg").click(()=>{
 
@@ -201,37 +205,6 @@ display: flex;
                    }
                });
             });
-
-      //  Delete message
-      /* $('#delete_msg_btn').click(() => {
-      
-        var msg_num=document.getElementById("editmsg_msg").value;
-        console.log(msg_num);
-                if(msg_num==0 ||msg_num=="") alert("cant edit without enter message number");
-                else{
-                    msg = msgArr[msg_num - 1];
-                }
-
-                var id=msg._id;
-
-                console.log("Delete : "+id);
-         $.ajax({
-                  url: "http://localhost:8080/deleteMessage=" + id,
-                  type: "GET",
-                  success: (data) => {
-                      alert('data was saved');
-                      reset_edit_process();
-                      reset_page();
-                      },
-                  error: function (err) {
-                     console.log(err);
-                   }
-               });
-
-
-        
-         });
-         */
 
          //Admin Edit process
 
@@ -277,6 +250,8 @@ display: flex;
             function reset_page(){
                 document.getElementById("admin_edit").style.display="none";
                 document.getElementById("massege_edit").style.display="none";
+                document.getElementById("view_users").style.display="none";
+
 
             }
  
@@ -289,7 +264,43 @@ display: flex;
                 
 
             }
-});
+
+
+
+            //User List
+
+            $("#UserList").click(()=>{
+
+                $.ajax({
+
+                    url: "http://localhost:8080/GetUsers",
+                    type: "GET",
+                    success: (usrs) => {
+                       var users = usrs;
+                        let i = 1;
+                        alert(users.length)
+                        for (let j = 0; j < users.length; j++) {
+
+                            if (users[j] == null)
+                                continue;
+                            else {
+                                document.getElementById("user"+i).innerText='User Name: ' + users[j].userName + ' Password: ' + users[j].password + ' Connected: ' + users[j].isConnected;
+                            }
+                            i++;
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+
+                reset_page();
+                document.getElementById("view_users").style.display="block";
+
+
+            });
+
+        });
 
 </script>
 
@@ -302,20 +313,16 @@ display: flex;
 
             <div id="outPut"></div>
 
-            <button id="showBttn">Users List</button>
+            <button id="UserList">Users List</button>
 
             <button id="editMessages">Edit Message</button>
 
             <button id="adminPassUserChangebtn">Edit Admin</button>
     </div>
 <div id="view_users" style="display: none;">
-
-        <div id='showUser1'> </div>
-        <button id="editBttn1" hidden='true'>Edit</button>
-        <div id='showUser2'> </div>
-        <button id="editBttn2" hidden='true'>Edit</button>
-        <div id='showUser3'></div>
-        <button id="editBttn3" hidden='true'>Edit</button>
+   <p class="user_line" id="user1"></p>
+   <p class="user_line" id="user2"></p>
+   <p class="user_line" id="user3"></p>
  </div>
 
 <div id="admin_edit" style="display: none;">
@@ -345,7 +352,6 @@ display: flex;
     </div>
     
     <br>
-
     <div id="pros2" style="display: none;">
         <div class="row-container">
             <label id="select_msg_lable"></label> 
@@ -360,8 +366,6 @@ display: flex;
         </div>
 
     </div>
-
-    
     <div id="pros3_edit" style="display: none;">
         <label id="edit_msg_title" ></label>
         <br>
@@ -378,7 +382,6 @@ display: flex;
         <input type="button" class="btn" id="submit_edit_msg" value="Save Changes">       
 
     </div>
-
     <div id="pros3_add" style="display: none;">
         <label id="add_msg_title" ></label>
         <br>
@@ -393,6 +396,6 @@ display: flex;
 
     </div>
 </div>
-</body>
 
+</body>
 </html>

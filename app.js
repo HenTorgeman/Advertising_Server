@@ -46,21 +46,33 @@ app.get('/Client', (request, response) => {
 
 });
 
-//Get all Massages from screen id
+//Client Log in -> user.connected=true
 app.get('/ClientLogIn=:user_name&:user_pass', function (request, response) {
-
     console.log("Clicked");
     const user_name = request.params.user_name;
     const user_pass = request.params.user_pass;
 
-    Usersdb.findOne({ userName: userName, password: user_pass })
+    Usersdb.findOne({ userName: user_name, password: user_pass })
         .then((usr) => {
-            usr.connected = true;
+            usr.isConnected = true;
             usr.save();
-            response.send(usr);
-        }).catch(err => {
-            console.log(err);
         });
+
+    response.send(true);
+});
+
+//Client Log out -> user.connected=false
+app.get('/ClientLogOut=:user_name&:user_pass', function (request, response) {
+    console.log("Clicked");
+    const user_name = request.params.user_name;
+    const user_pass = request.params.user_pass;
+
+    Usersdb.findOne({ userName: user_name, password: user_pass })
+        .then((usr) => {
+            usr.isConnected = false;
+            usr.save();
+        });
+    response.send(true);
 });
 
 //Get all Massages from screen id
@@ -70,8 +82,6 @@ app.get('/screen=:id', function (request, response) {
     Messagedb.find({ clientId: screen.toString() })
         .then((obj) => { response.send(obj) });
 });
-
-
 
 //Update Massage after editing
 app.get('/updateMessage=:messageText&:messageTime&:msgID&:screenID&:newScreen', function (request, response) {
@@ -108,6 +118,7 @@ app.get('/addNewMessage=:text&:duration&:id', function (request, response) {
 
 
     Messagedb.create({ clientId: screenID.toString(), txt: messageText, interval: messageTime });
+    Messagedb.save();
 
     response.send(true);
 });
@@ -176,3 +187,9 @@ app.get('/adminPassChange=:userName&:passWord&:newUser&:newPass', (request, resp
 
 
 
+//Get All Users
+app.get('/GetUsers', (request, response) => {
+
+    Usersdb.find({})
+        .then((usrs) => response.send(usrs));
+});
